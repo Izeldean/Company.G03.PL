@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace Company.G03.DAL.Data.Configurations
 {
-    internal class DepartmentsConfigurations : IEntityTypeConfiguration<Department>
+    public class DepartmentsConfigurations : IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
            builder.Property(D=>D.Id).UseIdentityColumn(10,10);
+       
         }
     }
 }
