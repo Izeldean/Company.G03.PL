@@ -1,5 +1,5 @@
 ﻿
-@model Department
+@model CreateDepartmentDto
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,7 +10,7 @@
 <br />
 <br />
 
-<form asp-action="Edit">
+<form asp-action="Edit" method="post">
     <div class="my-3">
 
         <label asp-for="Code" class="col-form-label"></label>

@@ -60,7 +60,8 @@ namespace Company.G03.PL.Controllers
                         IsActive = model.IsActive,
                         IsDeleted = model.IsDeleted,
                         Phone = model.Phone,
-                        Salary = model.Salary
+                        Salary = model.Salary, 
+                        DepartmentId=model.DepartmentId
                     };
                     var count = _employeeRepository.Add(employee);
                     if (count > 0)
@@ -110,7 +111,8 @@ namespace Company.G03.PL.Controllers
                 IsActive = employee.IsActive,
                 IsDeleted = employee.IsDeleted,
                 Phone = employee.Phone,
-                Salary = employee.Salary
+                Salary = employee.Salary,
+                DepartmentId = employee.DepartmentId
 
             };
             return View(employeeDto);
@@ -135,7 +137,8 @@ namespace Company.G03.PL.Controllers
                     IsActive = model.IsActive,
                     IsDeleted = model.IsDeleted,
                     Phone = model.Phone,
-                    Salary = model.Salary
+                    Salary = model.Salary,
+                    DepartmentId = model.DepartmentId
 
                 };
 
