@@ -1,6 +1,7 @@
 using Company.G03.BLL.Interfaces;
 using Company.G03.BLL.Repersitorties;
 using Company.G03.DAL.Data.Contexts;
+using Company.G03.PL.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company.G03.PL
@@ -20,6 +21,17 @@ namespace Company.G03.PL
       options => {
           options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
       });
+
+            // Life Time
+            // forms of dependence injection
+            //builder.Services.AddScoped(); // Create object Life Time Per Request - UnReachable object
+            //builder.Services.AddTransient(); // Create object life time per operations 
+            //builder.Services.AddSingleton(); // Create object life time per app
+
+            builder.Services.AddScoped<IScopedService, ScopedService>();
+            builder.Services.AddTransient<ITransientService, TransientService>();
+            builder.Services.AddSingleton<ISingletonService, SingletonService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

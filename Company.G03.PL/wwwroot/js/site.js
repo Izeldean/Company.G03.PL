@@ -1,4 +1,18 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿let InputSearch = document.getElementById("SearchInput");
 
-// Write your JavaScript code.
+InputSearch.addEventListener("keyup", function () {
+    let xhr = new XMLHttpRequest();
+
+    // Use backticks for template literals
+    let url = `https://localhost:44307/Employee?SearchInput=${InputSearch.value}`;
+
+    xhr.open("GET", url, true);
+
+    xhr.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText); // Fixed case-sensitive error
+        }
+    };
+
+    xhr.send();
+});

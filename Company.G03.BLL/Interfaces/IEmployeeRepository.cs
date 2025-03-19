@@ -10,6 +10,7 @@ namespace Company.G03.BLL.Interfaces
    public interface IEmployeeRepository:IGenericRepository<Employee>
     {
        
+        List<Employee>? GetByName(string name);
         //IEnumerable<Employee> GetAll();
         //Employee? Get(int id);
         //int Add(Employee employee); 

@@ -21,9 +21,22 @@ namespace Company.G03.PL.Controllers
 
 
         [HttpGet]
-        public IActionResult Index()
+        /* Search method is with in the index */
+        public IActionResult Index(string? SearchInput)
         {
-            var employees = _employeeRepository.GetAll();
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                employees = _employeeRepository.GetAll();
+
+            }
+            else
+            {
+                 employees = _employeeRepository.GetByName(SearchInput);
+            
+            
+            
+            }
             // Dicttionary:
             // ViewData : Transfer Extra Information From Controller (Action) To view
             ViewData["Message"] = "Hello From ViewData";
