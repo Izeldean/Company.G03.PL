@@ -19,11 +19,13 @@ namespace Company.G03.BLL.Repersitorties
 			_context = context;
 		}
 
-	
-		List<Employee>? IEmployeeRepository.GetByName(string name)
-		{
-			return _context.Employees.Include(E=>E.Department).Where(E => E.Name.ToLower().Contains(name.ToLower())).ToList();
+
+        public async Task<List<Employee>> GetByNameAsync(string name)
+        {
+			return await _context.Employees.Include(E=>E.Department).Where(E => E.Name.ToLower().Contains(name.ToLower())).ToListAsync();
 
 		}
-	}
+
+       
+    }
 }

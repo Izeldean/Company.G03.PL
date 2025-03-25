@@ -19,40 +19,44 @@ namespace Company.G03.BLL.Repersitorties
           _context = context;
         }
 
-        public int Add(T department)
+        public async Task AddAsync(T department)
         {
-           _context.Set<T>().Add(department);
-            return _context.SaveChanges();
+         await  _context.Set<T>().AddAsync(department);
+          
         }
 
-        public int Delete(T department)
+        public void Delete(T department)
           
         {
             _context.Set<T>().Remove(department);
-          return _context.SaveChanges();
+         
         }
 
-        public T? Get(int id)
+        public async Task<T?> GetAsync(int id)
         {
-            //if (typeof(T) == typeof(Employee))
-            //{
-            //    return (IEnumerable<T>)_context.Employees.Include(E => E.Department).FirstOrDefault(E => E.Id ==id) as T;
-            //}
+            if (typeof(T) == typeof(Employee))
+            {
+                return await _context.Employees.Include(E => E.Department).FirstOrDefaultAsync(E => E.Id == id) as T;
+            }
             return _context.Set<T>().Find(id);
         }
 
-        public IEnumerable<T> GetAll()
+        // async must be task or void
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             if (typeof(T) == typeof(Employee)) { 
-            return (IEnumerable<T>) _context.Employees.Include(A=> A.Department).ToList();
+
+            return (IEnumerable<T>) await _context.Employees.Include(A=> A.Department).ToListAsync();
             }
-          return _context.Set<T>().ToList();
+          return await _context.Set<T>().ToListAsync();
         }
 
-        public int Update(T department)
+        public void Update(T department)
         {
             _context.Set<T>().Update(department);
-            return _context.SaveChanges();
+
         }
+
+       
     }
 }

@@ -91,6 +91,11 @@
             <tr>
                 <th>
 
+                    Image
+                </th>
+
+                <th>
+
                    Name
                 </th>
 
@@ -149,13 +154,21 @@
             </tr>
 
         </thead>
-
+        @* asp-append-version="true"  *@
         <tbody>
 
             @foreach (var item in Model)
             
             {
                 <tr>
+
+                    <td>
+                        <img src="~/file/images/@item.ImageName" class="img-fluid rounded-circle" />
+
+                    </td>
+
+                  
+
                     <td>
 
                         @item.Name

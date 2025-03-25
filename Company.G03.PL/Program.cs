@@ -1,6 +1,9 @@
+using Company.G03.BLL;
 using Company.G03.BLL.Interfaces;
 using Company.G03.BLL.Repersitorties;
 using Company.G03.DAL.Data.Contexts;
+using Company.G03.DAL.Models;
+using Company.G03.PL.Mapping;
 using Company.G03.PL.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +18,25 @@ namespace Company.G03.PL
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>(); // Allow Dependency injection 
+
+
+            //-----------------------------------------------
+
+            builder.Services.AddScoped<IUnitWork, UnitOfWork>();
+            //-------------------------------------------------------
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
                         
             builder.Services.AddDbContext<CompanyDbContext>(
       options => {
           options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
       });
+            //----------------------------------------------------
+            // builder.Services.AddAutoMapper(typeof(Employee));
+            builder.Services.AddAutoMapper(M => M.AddProfile(new EmployeeProfile()));
+
+            //----------------------------------------------------
+
+
 
             // Life Time
             // forms of dependence injection
@@ -57,3 +73,5 @@ namespace Company.G03.PL
         }
     }
 }
+
+

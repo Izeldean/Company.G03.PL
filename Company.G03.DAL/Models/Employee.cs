@@ -28,6 +28,6 @@ namespace Company.G03.DAL.Models
         public int? DepartmentId { get; set; }
         public Department Department { get; set; }
 
-
+        public string? ImageName { get; set; }
     }
 }

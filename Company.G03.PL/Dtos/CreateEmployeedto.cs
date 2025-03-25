@@ -30,7 +30,14 @@ namespace Company.G03.PL.Dtos
         public DateTime CreateAt { get; set; }
         [DisplayName("Department")]
         public int? DepartmentId { get; set; }
-      
+        
+        public string? DepartmentName { get; set; }
+
+
+        public string? ImageName { get; set; }
+        public IFormFile? Image { get; set; }   
+
+        //public string? DepartmentName {  get; set; }
 
     }
 }
