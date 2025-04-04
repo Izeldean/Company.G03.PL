@@ -1,4 +1,4 @@
-using Company.G03.BLL;
+﻿using Company.G03.BLL;
 using Company.G03.BLL.Interfaces;
 using Company.G03.BLL.Repersitorties;
 using Company.G03.DAL.Data.Contexts;
@@ -52,14 +52,18 @@ namespace Company.G03.PL
 
             //--------------Allow user inject for user Manger--------------------------------
 
-            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CompanyDbContext>();
+            builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<CompanyDbContext>()
+                .AddDefaultTokenProviders();
 
 
 
             //-------------------------------------------------------------------------------
-            
-            
-            
+
+
+            builder.Services.ConfigureApplicationCookie(config => {
+                config.LoginPath = "/Account/SignIn";
+            }
+            );
             
             var app = builder.Build();
 
@@ -76,9 +80,18 @@ namespace Company.G03.PL
 
             app.UseRouting();
 
-            app.UseAuthorization();
 
-            app.MapControllerRoute(
+			//----------------------
+			// Creating email and password authentication
+			app.UseAuthentication(); // ✅ Authenticate first
+			app.UseAuthorization();  // ✅ Then apply authorization
+
+			
+			
+
+
+			//--------------------------------
+			app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
