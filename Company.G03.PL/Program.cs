@@ -3,8 +3,10 @@ using Company.G03.BLL.Interfaces;
 using Company.G03.BLL.Repersitorties;
 using Company.G03.DAL.Data.Contexts;
 using Company.G03.DAL.Models;
+using Company.G03.PL.Helpers;
 using Company.G03.PL.Mapping;
 using Company.G03.PL.Services;
+using Company.G03.PL.Sittings;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,8 +39,11 @@ namespace Company.G03.PL
 
             //----------------------------------------------------
 
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+            //-------------------------------------------
+            builder.Services.AddScoped<IMailservice,MailService>();
 
-
+            //-------------------------------------------
             // Life Time
             // forms of dependence injection
             //builder.Services.AddScoped(); // Create object Life Time Per Request - UnReachable object
@@ -62,6 +67,9 @@ namespace Company.G03.PL
 
             builder.Services.ConfigureApplicationCookie(config => {
                 config.LoginPath = "/Account/SignIn";
+                config.LogoutPath = "/Home/SignIn";
+                config.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+           
             }
             );
             

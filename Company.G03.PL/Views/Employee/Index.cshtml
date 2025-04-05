@@ -269,4 +269,26 @@ else
     </h4>
 
 </div>
-} 
+}
+
+<script>
+    const SearchBar = $('#SearchInput');
+    const tableBody = $('table tbody'); // target only tbody
+
+    SearchBar.on('keyup', function () {
+        var searchvalue = SearchBar.val();
+
+        $.ajax({
+            url: '/Employee/Search',
+            type: 'GET',
+            data: { SearchInput: searchvalue },
+            success: function (result) {
+                tableBody.html(result);  // Replace only tbody
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+
+</script>

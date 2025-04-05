@@ -53,6 +53,32 @@ namespace Company.G03.PL.Controllers
             return View(employees);
         }
 
+        public async Task<IActionResult> Search(string? SearchInput)
+        {
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(SearchInput))
+            {
+                employees = await _unitOfWork.EmployeeRepository.GetAllAsync();
+
+            }
+            else
+            {
+                employees = await _unitOfWork.EmployeeRepository.GetByNameAsync(SearchInput);
+
+
+
+            }
+            // Dicttionary:
+            // ViewData : Transfer Extra Information From Controller (Action) To view
+            ViewData["Message"] = "Hello From ViewData";
+            // ViewBag
+            ViewBag.Message = new { Message = "Hello From ViewBag" };
+            // TempData 
+
+            return PartialView("EmployeePartialView/EmployessTablePartialView", employees);  
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {

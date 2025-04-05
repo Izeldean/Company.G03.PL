@@ -2,10 +2,13 @@
 using Company.G03.BLL.Repersitorties;
 using Company.G03.DAL.Models;
 using Company.G03.PL.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.G03.PL.Controllers
 {
+    //[Authorize(Roles ="Admin")]
+    [Authorize]
     public class DepartmentController : Controller
     {
         //private readonly IDepartmentRepository _departmentRepository;
@@ -170,7 +173,7 @@ namespace Company.G03.PL.Controllers
 		//      }
 
 		[HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Delete(int id, CreateDepartmentDto model)
         {
             if (ModelState.IsValid)
